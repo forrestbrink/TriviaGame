@@ -9,10 +9,61 @@ namespace TriviaGame
 {
     class Program
     {
+        static List<Trivia> QuestionList;
         static void Main(string[] args)
         {
             //The logic for your trivia game happens here
+            QuestionList = GetTriviaList();
             List<Trivia> AllQuestions = GetTriviaList();
+            Console.WriteLine("Hello, welcome to SeedPaths Trivia Game!  What is your name?");
+            string input = Console.ReadLine();
+            Console.WriteLine("Hello, " + input + " lets play!");
+            Console.WriteLine("You will be asked random trivia questions and depending on your answer, you will be told if you are right or wrong.");
+
+            int turnsLeft = 5;
+            int questionsRight = 0;
+
+            while (questionsRight <= 5000 || turnsLeft >= 0)
+            {
+                int score = 0;
+                Random newTrivia = new Random();
+                int number = newTrivia.Next(0, QuestionList.Count());
+                Trivia output = QuestionList[number];
+                Console.WriteLine(newTrivia.Tell());
+                Console.WriteLine("Enter your answer");
+                string answer = Console.ReadLine().ToLower();
+                if (answer == newTrivia.Tell())
+                {
+
+                    Console.WriteLine("You have answered: " + score + "correctly, and you still have: " + turnsLeft + " turns left.");
+                    Console.WriteLine("Correct!");
+                    score++;
+                }
+                else
+                {
+
+                    Console.WriteLine("You have answered: " + score + "correctly, and you still have: " + turnsLeft + " turns left.");
+
+                    Console.WriteLine("The correct answer is: " + newTrivia.Tell());
+                    turnsLeft--;
+                    if (turnsLeft == 4)
+                    {
+                        Console.WriteLine("You have only used one turn. you still have 4 left!");
+                    }
+                    else if (turnsLeft == 3)
+                    {
+                        Console.WriteLine("You still have three turns left!");
+                    }
+                    else if (turnsLeft == 2)
+                    {
+                        Console.WriteLine("Two turns left!");
+                    }
+                    else if (turnsLeft == 1)
+                    {
+                        Console.WriteLine("Only one turn left!");
+                    }
+                }
+            }
         }
 
 
